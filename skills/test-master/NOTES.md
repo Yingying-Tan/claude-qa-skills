@@ -1,5 +1,52 @@
 # Test Master - Customization Notes
 
+## Customization: MCP Tool Integration
+Add the following to `SKILL.md` in two places:
+
+### 1. Add "Available Tools" section to SKILL.md
+```markdown
+## Available Tools
+- **Jira MCP** — read story details, acceptance criteria, priority, and linked tickets
+- **GitHub MCP** — read PR changes, codebase files, and understand code implementation logic
+```
+
+### 2. Add MCP usage to each Workflow step
+```markdown
+0. **Load context**
+   - Search `references/domain-knowledge/` by keyword
+   - IF Jira ticket provided → use Jira MCP to read story description, AC, and priority
+   - IF GitHub repo/PR provided → use GitHub MCP to read PR diff and relevant code files to understand implementation logic
+
+1. **Define scope**
+   - Use Jira MCP story details to identify what components are changed
+   - Use GitHub MCP to read codebase and understand how the feature is implemented
+
+2. **Create strategy**
+   - Map Jira AC items directly to test cases
+   - Use GitHub MCP code reading to identify edge cases from actual implementation
+
+3. **Write tests**
+   - Base test cases on Jira AC + actual code logic from GitHub MCP
+```
+
+### Why both are needed:
+- Jira MCP → provides WHAT needs to be tested (requirements, AC, business intent)
+- GitHub MCP → provides HOW it is implemented (code logic, edge cases, dependencies)
+- Together → enables precise, implementation-aware test cases instead of generic ones
+
+---
+
+## Rule: Domain Knowledge lookup priority
+When performing any test analysis, Claude MUST follow this workflow:
+1. **First** — search `references/domain-knowledge/` by keyword matching the feature/topic being tested
+2. **If found** — read and understand the domain knowledge first, then apply `SKILL.md` workflow and all relevant references to complete the testing work
+3. **If not found** — proceed directly with `SKILL.md` workflow using QA methodology and common sense
+- Domain knowledge provides business context, NOT a replacement for QA methodology
+- The full test analysis is always driven by `SKILL.md` + references; domain knowledge enriches it with business-specific rules
+- Suggested fix: Add this lookup rule explicitly to `SKILL.md` Core Workflow Step 0
+
+---
+
 ## Customization: Add Domain Knowledge as mandatory Step 0
 - Create `references/domain-knowledge.md` with fixed business rules (password policy, roles, lockout rules, etc.)
 - Add it to `SKILL.md` Core Workflow as Step 0 — ALWAYS load before anything else:

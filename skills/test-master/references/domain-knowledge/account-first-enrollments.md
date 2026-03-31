@@ -43,7 +43,7 @@ Two parallel flow variants exist:
 
 ---
 
-## Enrollment Flow — Step by Step
+## AFE Sign Up Flow
 
 ### Stage 1: Entry
 
@@ -68,9 +68,10 @@ Two parallel flow variants exist:
 
 ### Stage 3: Email Verification
 
-6. System sends an **8-digit OTP code** to the entered email address
+6. System sends an **8-digit OTP code** to the entered email address; account is created in Ping with **"unverified"** tag on the email
 7. User enters the OTP code on the verification screen
-8. Email is verified ✓
+8. Email is verified ✓ — Ping updates the email status to **"verified"**
+   - If email verification is not completed, every subsequent regular login or AFE login will continue sending the 8-digit OTP code until the email is verified
 
 ---
 
@@ -91,6 +92,9 @@ Two parallel flow variants exist:
 
 12. User is asked to create a password with the option to skip
 13. Future: a reminder to set a password may be shown 24 hours after enrollment
+
+> **If the user skips:** No password is set on the account.
+> In **Profile Settings**, the password action is labeled **"Create Password"** (not "Change Password") since no password exists yet.
 
 
 ---
